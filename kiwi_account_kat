@@ -1,0 +1,70 @@
+public class Account {
+	
+
+	private double balance;
+	private Statement statement;
+	private double balanceMin;
+	private double balanceMax;
+	
+
+	
+	public Account(){
+		statement=new Statement();
+		balance=0;
+		
+		
+		this.balanceMax=9000;
+		this.balanceMin=-900;
+	}
+	public Account(double balance,double balanceMin, double balanceMax){
+		this();
+		this.balance=balance;
+		this.balanceMax=balanceMax;
+		this.balanceMin=balanceMin;
+	}
+	
+	
+	public void withdrawal(double amount){
+		
+		if((balance-amount)>= balanceMin){
+			Operation operation=new Operation("WITHDRAWAL",amount);
+			statement.addOperation(operation);
+			balance-=amount;
+			System.out.println("Operation reussie");
+		}
+		else
+			System.out.println("impossible de retirer");
+	}
+	
+	
+	public void deposit(double amount){
+		
+		
+		if((balance+amount)<= balanceMax){
+			Operation operation=new Operation("DEPOSIT   ",amount);
+			statement.addOperation(operation);
+			balance+=amount;
+			System.out.println("Operation reussie");
+		}
+		else{
+			System.out.println("impossible de déposer");
+		}
+	}
+	
+	
+	public void  print(){
+		System.out.println("Votre releve de compte: ");
+		System.out.println("-------=======---------");	
+		System.out.println("OPERATION    MONTANT    DATE ");
+		System.out.println("----------------------------");	
+		System.out.println(statement.print());
+		System.out.println("SOLDE:   "+balance);
+		System.out.println("ABIENTOT");
+	}
+
+
+	public double getBalance() {
+		return balance;
+	}
+	 
+}
